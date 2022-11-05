@@ -83,22 +83,21 @@ void ImguiImpl::Render()
 
     // Main window, this window will hold the viewport and the preferences
     /*
-                  ─────────────────────────────────┐
-                  │      │                         │
-                  │      │                         │
-                  ├──────│                         │
-                  │      │                         │
-                  │      │                         │
-                  │      │                         │
-                  ├──────┤                         │
-                  │      │                         │
-                  └──────┴─────────────────────────┘
-   */
-
+                              ─────────────────────────────────┐
+                              │      │                         │
+                              │      │                         │
+                              ├──────│                         │
+                              │      │                         │
+                              │      │                         │
+                              │      │                         │
+                              ├──────┤                         │
+                              │      │                         │
+                              └──────┴─────────────────────────┘
+               */
 
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
-    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    const ImGuiViewport *viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->WorkPos);
     ImGui::SetNextWindowSize(viewport->WorkSize);
     ImGui::SetNextWindowViewport(viewport->ID);
@@ -112,70 +111,83 @@ void ImguiImpl::Render()
     if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
         window_flags |= ImGuiWindowFlags_NoBackground;
 
-
     ImGui::Begin("Sorting Algorithms Visualizer", &m_showMainWindow, window_flags);
-
-    ImGui::PopStyleVar(2);
-
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
     {
-        ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-        ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-    }
 
+        ImGui::PopStyleVar(2);
 
-
-    if (ImGui::BeginMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
+        ImGuiIO &io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
         {
-            if (ImGui::MenuItem("Open..", "Ctrl+O"))
-            {
-                // Do stuff
-            }
-            if (ImGui::MenuItem("Save", "Ctrl+S"))
-            {
-                // Do stuff
-            }
-            
-            ImGui::Separator();
-            if (ImGui::MenuItem(m_ShowDemoWindow ? "Hide Demo Window" : "Show Demo Window", ""))
-            {
-                m_ShowDemoWindow = !m_ShowDemoWindow;
-            }
-
-
-            ImGui::Separator();
-            if (ImGui::MenuItem("Close", "Ctrl+W"))
-            {
-                m_GLFWImpl.Close();
-            }
-            ImGui::EndMenu();
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
         }
-        ImGui::EndMenuBar();
+
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Open..", "Ctrl+O"))
+                {
+                    // Do stuff
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S"))
+                {
+                    // Do stuff
+                }
+
+                ImGui::Separator();
+                if (ImGui::MenuItem(m_ShowDemoWindow ? "Hide Demo Window" : "Show Demo Window", ""))
+                {
+                    m_ShowDemoWindow = !m_ShowDemoWindow;
+                }
+
+                ImGui::Separator();
+                if (ImGui::MenuItem("Close", "Ctrl+W"))
+                {
+                    m_GLFWImpl.Close();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+
+        // demo window
+        if (m_ShowDemoWindow)
+            ImGui::ShowDemoWindow(&m_ShowDemoWindow);
+
+        // Left group, contains: properties, table, specs
+        ImGui::BeginGroup();
+        {
+            ImGui::Begin("Properties", NULL, m_tab_flags);
+            {
+                ImGui::PushID("properties");
+                ImGui::Text("Size of the Array");
+                ImGui::SliderInt("", &m_slider_size, 0, 1000, "%d", ImGuiSliderFlags_None);
+                ImGui::PopID();
+            }
+            ImGui::End();
+
+            ImGui::Begin("Data", NULL, m_tab_flags);
+            ImGui::End();
+
+            ImGui::Begin("Specs", NULL, m_tab_flags);
+            ImGui::End();
+        }
+        ImGui::EndGroup();
+
+        ImGui::Begin("Viewport", NULL, m_tab_flags);
+        {
+            static float m_arr[] = { 0, 24, 100, 64, 28, 19, 97, 87 };
+
+            ImGui::PlotHistogram("Histogram", m_arr, IM_ARRAYSIZE(m_arr), 0, NULL, 0.0f, 1.0f, ImVec2(0, 80.0f));
+        }
+        ImGui::End();
     }
-
-    // demo window
-    if (m_ShowDemoWindow)
-        ImGui::ShowDemoWindow(&m_ShowDemoWindow);
-
-
-
-    // Create a button
-    if (ImGui::Button("Button"))
-    {
-        // Do stuff
-    }
-
-    // Create a min and max slider
-    static float f = 0.0f;
-    ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-
     ImGui::End();
-    // End Main Window
 
     ImGui::Render();
+
     int display_w, display_h;
     glfwGetFramebufferSize(m_GLFWImpl.GetWindow(), &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
