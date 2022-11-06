@@ -16,6 +16,7 @@ include/**/*
 *.lo
 *.o
 *.obj
+*/src/*.o
 
 # Precompiled Headers
 *.gch
