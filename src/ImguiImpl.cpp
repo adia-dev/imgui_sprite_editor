@@ -50,7 +50,7 @@ namespace sa
         // io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
         // io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
         // ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-        // IM_ASSERT(font != NULL);
+        // Im_ASSERT(font != NULL);
     }
 
     ImguiImpl::~ImguiImpl()
@@ -59,47 +59,47 @@ namespace sa
 
     void ImguiImpl::Init()
     {
-        auto emptyLambda = [](const std::vector<float> &) {};
-        m_sortingAlgorithms[1] = SortingAlgorithm<float>("Bubble Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[2] = SortingAlgorithm<float>("Selection Sort   (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[3] = SortingAlgorithm<float>("Insertion Sort   (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[4] = SortingAlgorithm<float>("Merge Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[5] = SortingAlgorithm<float>("Quick Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[6] = SortingAlgorithm<float>("Heap Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[7] = SortingAlgorithm<float>("Shell Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[8] = SortingAlgorithm<float>("Radix Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[9] = SortingAlgorithm<float>("Counting Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[10] = SortingAlgorithm<float>("Bucket Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[11] = SortingAlgorithm<float>("Cocktail Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[12] = SortingAlgorithm<float>("Comb Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[13] = SortingAlgorithm<float>("Cycle Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[14] = SortingAlgorithm<float>("Gnome Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[15] = SortingAlgorithm<float>("Pancake Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[16] = SortingAlgorithm<float>("Bogo Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[17] = SortingAlgorithm<float>("Bitonic Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[18] = SortingAlgorithm<float>("Pigeonhole Sort  (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[19] = SortingAlgorithm<float>("Strand Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[20] = SortingAlgorithm<float>("Tree Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[21] = SortingAlgorithm<float>("Stooge Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[22] = SortingAlgorithm<float>("Tim Sort         (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[23] = SortingAlgorithm<float>("Cube Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[24] = SortingAlgorithm<float>("Block Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[25] = SortingAlgorithm<float>("Smooth Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[26] = SortingAlgorithm<float>("Odd-Even Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[27] = SortingAlgorithm<float>("Quick3 Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[28] = SortingAlgorithm<float>("Library Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[29] = SortingAlgorithm<float>("Bead Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[30] = SortingAlgorithm<float>("Flash Sort       (non implemented !)", emptyLambda);
 
-        m_sortingAlgorithmsLabels = (char **)(malloc(sizeof(char *) * m_sortingAlgorithms.size()));
+        m_SortingAlgorithms[1] = SortingAlgorithm<float>("Bubble Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[2] = SortingAlgorithm<float>("Selection Sort   (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[3] = SortingAlgorithm<float>("Insertion Sort   (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[4] = SortingAlgorithm<float>("Merge Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[5] = SortingAlgorithm<float>("Quick Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[6] = SortingAlgorithm<float>("Heap Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[7] = SortingAlgorithm<float>("Shell Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[8] = SortingAlgorithm<float>("Radix Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[9] = SortingAlgorithm<float>("Counting Sort    (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[10] = SortingAlgorithm<float>("Bucket Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[11] = SortingAlgorithm<float>("Cocktail Sort    (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[12] = SortingAlgorithm<float>("Comb Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[13] = SortingAlgorithm<float>("Cycle Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[14] = SortingAlgorithm<float>("Gnome Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[15] = SortingAlgorithm<float>("Pancake Sort     (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[16] = SortingAlgorithm<float>("Bogo Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[17] = SortingAlgorithm<float>("Bitonic Sort     (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[18] = SortingAlgorithm<float>("Pigeonhole Sort  (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[19] = SortingAlgorithm<float>("Strand Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[20] = SortingAlgorithm<float>("Tree Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[21] = SortingAlgorithm<float>("Stooge Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[22] = SortingAlgorithm<float>("Tim Sort         (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[23] = SortingAlgorithm<float>("Cube Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[24] = SortingAlgorithm<float>("Block Sort       (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[25] = SortingAlgorithm<float>("Smooth Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[26] = SortingAlgorithm<float>("Odd-Even Sort    (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[27] = SortingAlgorithm<float>("Quick3 Sort      (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[28] = SortingAlgorithm<float>("Library Sort     (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[29] = SortingAlgorithm<float>("Bead Sort        (non implemented !)", EMPTY_LAMDA(float));
+        m_SortingAlgorithms[30] = SortingAlgorithm<float>("Flash Sort       (non implemented !)", EMPTY_LAMDA(float));
 
-        for (auto [key, value] : m_sortingAlgorithms)
+        m_SortingAlgorithmsLabels = (char **)(malloc(sizeof(char *) * m_SortingAlgorithms.size()));
+
+        for (auto [key, value] : m_SortingAlgorithms)
         {
-            m_sortingAlgorithmsLabels[key - 1] = (char *)(malloc(sizeof(char) * value.getName().size()));
-            strncpy(m_sortingAlgorithmsLabels[key - 1], value.getName().c_str(), value.getName().size() + 1);
+            m_SortingAlgorithmsLabels[key - 1] = (char *)(malloc(sizeof(char) * value.getName().size()));
+            strncpy(m_SortingAlgorithmsLabels[key - 1], value.getName().c_str(), value.getName().size() + 1);
         }
 
-        m_currentSortingAlgorithm = &(m_sortingAlgorithms[1]);
+        m_CurrentSortingAlgorithm = &(m_SortingAlgorithms[1]);
     }
 
     void ImguiImpl::Play()
@@ -157,7 +157,7 @@ namespace sa
         if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
             window_flags |= ImGuiWindowFlags_NoBackground;
 
-        ImGui::Begin("Sorting Algorithms Visualizer", &m_showMainWindow, window_flags);
+        ImGui::Begin("Sorting Algorithms Visualizer", &m_ShowMainWindow, window_flags);
         {
 
             ImGui::PopStyleVar(2);
@@ -206,17 +206,17 @@ namespace sa
             ImGui::BeginGroup();
             {
                 // no vertical scrolling
-                ImGui::Begin("Properties", NULL, m_tab_flags);
+                ImGui::Begin("Properties", NULL, m_Tab_flags);
                 {
                     ImGui::PushID("Properties");
                     // create a const char* array with the names of the algorithms
 
-                    ImGui::Combo("Sorting Algorithm", &m_currentSortingAlgorithmIndex, m_sortingAlgorithmsLabels, 10);
+                    ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10);
 
                     // Slider label instead of the default one to avoid the inline display
                     ImGui::Text("Size of the Array");
                     // this slider act on the size of the array, it will generate a new array of random numbers on change
-                    ImGui::SliderInt("", &m_slider_size, m_slider_min, m_slider_max, "%d", ImGuiSliderFlags_None);
+                    ImGui::SliderInt("", &m_Slider_size, m_Slider_min, m_Slider_max, "%d", ImGuiSliderFlags_None);
 
                     ImGui::SameLine();
                     ImGui::BeginGroup();
@@ -226,13 +226,13 @@ namespace sa
                         {
                             std::random_device rd;
                             std::mt19937 g(rd());
-                            std::shuffle(m_values.begin(), m_values.end(), g);
+                            std::shuffle(m_Values.begin(), m_Values.end(), g);
                         }
 
                         // ImGui::SameLine();
                         if (ImGui::Button("Sort", {-FLT_MIN, 19.f}))
                         {
-                            std::sort(m_values.begin(), m_values.end());
+                            std::sort(m_Values.begin(), m_Values.end());
                         }
                         ImGui::PopID();
                     }
@@ -240,7 +240,7 @@ namespace sa
 
                     ImGui::Text("Status:");
                     ImGui::SameLine();
-                    if (std::is_sorted(m_values.begin(), m_values.end()))
+                    if (std::is_sorted(m_Values.begin(), m_Values.end()))
                     {
                         ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "sorted");
                     }
@@ -253,13 +253,13 @@ namespace sa
                 }
                 ImGui::End();
 
-                ImGui::Begin("Data", NULL, m_tab_flags);
+                ImGui::Begin("Data", NULL, m_Tab_flags);
                 {
                     ImGui::PushID("Data");
 
                     if (ImGui::BeginListBox("###data-listbox", {-FLT_MIN, -FLT_MIN}))
                     {
-                        for (auto i : m_values)
+                        for (auto i : m_Values)
                         {
                             ImGui::Selectable(std::to_string((int)i).c_str(), false);
                         }
@@ -270,31 +270,31 @@ namespace sa
                 }
                 ImGui::End();
 
-                ImGui::Begin("Specs", NULL, m_tab_flags);
+                ImGui::Begin("Specs", NULL, m_Tab_flags);
                 ImGui::End();
             }
             ImGui::EndGroup();
 
-            ImGui::Begin("Viewport", NULL, m_tab_flags);
+            ImGui::Begin("Viewport", NULL, m_Tab_flags);
             {
                 ImGui::PushID("viewport");
-                if (m_slider_size != m_values.size())
+                if (m_Slider_size != m_Values.size())
                 {
-                    m_values.resize(m_slider_size);
-                    // std::generate(m_values.begin(), m_values.end(), [this]()
-                    //               { return rand() % (m_slider_size - 1) + 1; });
+                    m_Values.resize(m_Slider_size);
+                    // std::generate(m_Values.begin(), m_Values.end(), [this]()
+                    //               { return rand() % (m_Slider_size - 1) + 1; });
 
-                    for (int i = 0; i < m_slider_size; ++i)
+                    for (int i = 0; i < m_Slider_size; ++i)
                     {
-                        m_values[i] = i + 1;
+                        m_Values[i] = i + 1;
                     }
-                    sort(m_values.begin(), m_values.end());
+                    sort(m_Values.begin(), m_Values.end());
                 }
 
                 ImVec2 windowSize = ImGui::GetWindowSize();
-                ImGui::PlotLines("", m_values.data(), m_values.size(), 0, "", 0, m_slider_size, ImVec2(windowSize.x, 40.f));
+                ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_Slider_size, ImVec2(windowSize.x, 40.f));
 
-                ImGui::PlotHistogram("", m_values.data(), m_slider_size, 0, NULL, 0.0f, (float)m_slider_size, ImVec2(windowSize.x, windowSize.y - 40.f));
+                ImGui::PlotHistogram("", m_Values.data(), m_Slider_size, 0, NULL, 0.0f, (float)m_Slider_size, ImVec2(windowSize.x, windowSize.y - 40.f));
                 ImGui::PopID();
             }
             ImGui::End();

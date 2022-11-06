@@ -48,8 +48,8 @@ namespace sa
 
         GLFWwindow *GetWindow() const { return m_Window; }
 
-        const std::string &GetGLSLVersion() const { return m_glsl_version; }
-        const char *GetGLSLVersionCStr() const { return m_glsl_version.c_str(); }
+        const std::string &GetGLSLVersion() const { return m_Glsl_version; }
+        const char *GetGLSLVersionCStr() const { return m_Glsl_version.c_str(); }
 
     private:
         static void glfw_error_callback(int error, const char *description)
@@ -59,7 +59,7 @@ namespace sa
 
         GLFWwindow *m_Window = nullptr;
         std::string m_WindowTitle = "Sorting Algorithms";
-        std::string m_glsl_version = "#version 130";
+        std::string m_Glsl_version = "#version 130";
     };
 } // namespace sa
 
