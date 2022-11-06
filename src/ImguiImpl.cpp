@@ -59,44 +59,44 @@ namespace sa
 
     void ImguiImpl::Init()
     {
-        auto emptyLambda = [](const std::vector<int> &) {};
-        m_sortingAlgorithms[1] = SortingAlgorithm("Bubble Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[2] = SortingAlgorithm("Selection Sort   (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[3] = SortingAlgorithm("Insertion Sort   (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[4] = SortingAlgorithm("Merge Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[5] = SortingAlgorithm("Quick Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[6] = SortingAlgorithm("Heap Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[7] = SortingAlgorithm("Shell Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[8] = SortingAlgorithm("Radix Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[9] = SortingAlgorithm("Counting Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[10] = SortingAlgorithm("Bucket Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[11] = SortingAlgorithm("Cocktail Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[12] = SortingAlgorithm("Comb Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[13] = SortingAlgorithm("Cycle Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[14] = SortingAlgorithm("Gnome Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[15] = SortingAlgorithm("Pancake Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[16] = SortingAlgorithm("Bogo Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[17] = SortingAlgorithm("Bitonic Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[18] = SortingAlgorithm("Pigeonhole Sort  (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[19] = SortingAlgorithm("Strand Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[20] = SortingAlgorithm("Tree Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[21] = SortingAlgorithm("Stooge Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[22] = SortingAlgorithm("Tim Sort         (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[23] = SortingAlgorithm("Cube Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[24] = SortingAlgorithm("Block Sort       (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[25] = SortingAlgorithm("Smooth Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[26] = SortingAlgorithm("Odd-Even Sort    (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[27] = SortingAlgorithm("Quick3 Sort      (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[28] = SortingAlgorithm("Library Sort     (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[29] = SortingAlgorithm("Bead Sort        (non implemented !)", emptyLambda);
-        m_sortingAlgorithms[30] = SortingAlgorithm("Flash Sort       (non implemented !)", emptyLambda);
+        auto emptyLambda = [](const std::vector<float> &) {};
+        m_sortingAlgorithms[1] = SortingAlgorithm<float>("Bubble Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[2] = SortingAlgorithm<float>("Selection Sort   (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[3] = SortingAlgorithm<float>("Insertion Sort   (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[4] = SortingAlgorithm<float>("Merge Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[5] = SortingAlgorithm<float>("Quick Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[6] = SortingAlgorithm<float>("Heap Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[7] = SortingAlgorithm<float>("Shell Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[8] = SortingAlgorithm<float>("Radix Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[9] = SortingAlgorithm<float>("Counting Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[10] = SortingAlgorithm<float>("Bucket Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[11] = SortingAlgorithm<float>("Cocktail Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[12] = SortingAlgorithm<float>("Comb Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[13] = SortingAlgorithm<float>("Cycle Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[14] = SortingAlgorithm<float>("Gnome Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[15] = SortingAlgorithm<float>("Pancake Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[16] = SortingAlgorithm<float>("Bogo Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[17] = SortingAlgorithm<float>("Bitonic Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[18] = SortingAlgorithm<float>("Pigeonhole Sort  (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[19] = SortingAlgorithm<float>("Strand Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[20] = SortingAlgorithm<float>("Tree Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[21] = SortingAlgorithm<float>("Stooge Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[22] = SortingAlgorithm<float>("Tim Sort         (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[23] = SortingAlgorithm<float>("Cube Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[24] = SortingAlgorithm<float>("Block Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[25] = SortingAlgorithm<float>("Smooth Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[26] = SortingAlgorithm<float>("Odd-Even Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[27] = SortingAlgorithm<float>("Quick3 Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[28] = SortingAlgorithm<float>("Library Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[29] = SortingAlgorithm<float>("Bead Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[30] = SortingAlgorithm<float>("Flash Sort       (non implemented !)", emptyLambda);
 
         m_sortingAlgorithmsLabels = (char **)(malloc(sizeof(char *) * m_sortingAlgorithms.size()));
 
         for (auto [key, value] : m_sortingAlgorithms)
         {
-            m_sortingAlgorithmsLabels[key - 1] = (char *)(malloc(sizeof(char) * value.name.size()));
-            strncpy(m_sortingAlgorithmsLabels[key - 1], value.name.c_str(), value.name.size() + 1);
+            m_sortingAlgorithmsLabels[key - 1] = (char *)(malloc(sizeof(char) * value.getName().size()));
+            strncpy(m_sortingAlgorithmsLabels[key - 1], value.getName().c_str(), value.getName().size() + 1);
         }
 
         m_currentSortingAlgorithm = &(m_sortingAlgorithms[1]);
