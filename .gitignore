@@ -6,9 +6,6 @@
 *.d
 
 
-# include directories
-include/
-include/**/*
 
 
 # Compiled Object files
