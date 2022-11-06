@@ -1,6 +1,6 @@
 #include "GLFWImpl.h"
 
-namespace example
+namespace sa
 {
     GLFWImpl::GLFWImpl()
     {
@@ -50,4 +50,4 @@ namespace example
     {
         glfwPollEvents();
     }
-} // namespace example
+} // namespace sa

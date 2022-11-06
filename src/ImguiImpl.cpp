@@ -1,6 +1,6 @@
 #include "ImguiImpl.h"
 
-namespace example
+namespace sa
 {
 
     ImguiImpl::ImguiImpl(GLFWImpl &glfwImpl)
@@ -238,6 +238,8 @@ namespace example
                     }
                     ImGui::EndGroup();
 
+                    ImGui::Text("Status:");
+                    ImGui::SameLine();
                     if (std::is_sorted(m_values.begin(), m_values.end()))
                     {
                         ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "sorted");
@@ -336,4 +338,4 @@ namespace example
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
     }
-} // namespace example
+} // namespace sa

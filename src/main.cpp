@@ -8,8 +8,8 @@
 int main(int, char **)
 {
 
-    example::GLFWImpl glfwImpl;
-    example::ImguiImpl imguiImpl(glfwImpl);
+    sa::GLFWImpl glfwImpl;
+    sa::ImguiImpl imguiImpl(glfwImpl);
 
     imguiImpl.Play();
 

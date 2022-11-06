@@ -4,7 +4,7 @@
 #pragma once
 #include "GLFWImpl.h"
 
-namespace example
+namespace sa
 {
 
     struct SortingAlgorithm
@@ -54,6 +54,6 @@ namespace example
         ImGuiWindowFlags m_tab_flags = ImGuiWindowFlags_NoScrollbar;
         ImVec4 m_ClearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     };
-} // namespace example
+} // namespace sa
 
 #endif

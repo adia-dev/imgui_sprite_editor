@@ -31,7 +31,7 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-namespace example
+namespace sa
 {
     class GLFWImpl
     {
@@ -60,6 +60,6 @@ namespace example
         std::string m_WindowTitle = "Sorting Algorithms";
         std::string m_glsl_version = "#version 130";
     };
-} // namespace example
+} // namespace sa
 
 #endif
