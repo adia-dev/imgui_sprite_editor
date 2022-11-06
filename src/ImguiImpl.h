@@ -6,6 +6,19 @@
 
 namespace example
 {
+
+    struct SortingAlgorithm
+    {
+        SortingAlgorithm()
+        {
+        }
+        SortingAlgorithm(const std::string &name) : name(name) {}
+        SortingAlgorithm(const char *name, std::function<void(std::vector<int> &)> sort)
+            : name(name), sort(std::move(sort)) {}
+        std::string name;
+        std::function<void(std::vector<int> &)> sort;
+    };
+
     class ImguiImpl
     {
     public:
@@ -15,6 +28,8 @@ namespace example
         void Play();
 
     private:
+        void Init();
+
         virtual void Update();
         void Render();
         void RenderAdditionalPlatformWindows();
@@ -31,8 +46,12 @@ namespace example
         int m_slider_max = 1000;
 
         std::vector<float> m_values;
+        std::map<int, SortingAlgorithm> m_sortingAlgorithms;
+        char **m_sortingAlgorithmsLabels = nullptr;
+        int m_currentSortingAlgorithmIndex = 0;
+        SortingAlgorithm *m_currentSortingAlgorithm = nullptr;
 
-        ImGuiWindowFlags m_tab_flags = ImGuiWindowFlags_None;
+        ImGuiWindowFlags m_tab_flags = ImGuiWindowFlags_NoScrollbar;
         ImVec4 m_ClearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     };
 } // namespace example
