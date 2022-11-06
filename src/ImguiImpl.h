@@ -27,6 +27,11 @@ namespace example
 
         int m_slider_size = 100;
 
+        int m_slider_min = 1;
+        int m_slider_max = 1000;
+
+        std::vector<float> m_values;
+
         ImGuiWindowFlags m_tab_flags = ImGuiWindowFlags_None;
         ImVec4 m_ClearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     };

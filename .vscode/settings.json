@@ -4,6 +4,7 @@
     "*.heex": "phoenix-heex",
     "*.h": "cpp",
     "*.ui": "xml",
-    "string": "cpp"
+    "string": "cpp",
+    "vector": "cpp"
   }
 }
