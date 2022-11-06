@@ -12,6 +12,7 @@
 #include <GLES2/gl2.h>
 #endif
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
+
 #include <memory>
 #include <vector>
 #include <map>
@@ -20,6 +21,8 @@
 #include <functional>
 #include <utility>
 #include <cstdlib>
+#include <random>
+#include <iterator>
 
 // [Win32] Our example includes a copy of glfw3.lib pre-compiled with VS2010 to maximize ease of testing and compatibility with old VS compilers.
 // To link with VS2010-era libraries, VS2015+ requires linking with legacy_stdio_definitions.lib, which we do using this pragma.
@@ -54,7 +57,7 @@ namespace example
         }
 
         GLFWwindow *m_Window = nullptr;
-        std::string m_WindowTitle = "Dear ImGui GLFW+OpenGL3 example";
+        std::string m_WindowTitle = "Sorting Algorithms";
         std::string m_glsl_version = "#version 130";
     };
 } // namespace example

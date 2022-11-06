@@ -60,36 +60,36 @@ namespace example
     void ImguiImpl::Init()
     {
         auto emptyLambda = [](const std::vector<int> &) {};
-        m_sortingAlgorithms[1] = SortingAlgorithm("Bubble Sort", emptyLambda);
-        m_sortingAlgorithms[2] = SortingAlgorithm("Selection Sort", emptyLambda);
-        m_sortingAlgorithms[3] = SortingAlgorithm("Insertion Sort", emptyLambda);
-        m_sortingAlgorithms[4] = SortingAlgorithm("Merge Sort", emptyLambda);
-        m_sortingAlgorithms[5] = SortingAlgorithm("Quick Sort", emptyLambda);
-        m_sortingAlgorithms[6] = SortingAlgorithm("Heap Sort", emptyLambda);
-        m_sortingAlgorithms[7] = SortingAlgorithm("Shell Sort", emptyLambda);
-        m_sortingAlgorithms[8] = SortingAlgorithm("Radix Sort", emptyLambda);
-        m_sortingAlgorithms[9] = SortingAlgorithm("Counting Sort", emptyLambda);
-        m_sortingAlgorithms[10] = SortingAlgorithm("Bucket Sort", emptyLambda);
-        m_sortingAlgorithms[11] = SortingAlgorithm("Cocktail Sort", emptyLambda);
-        m_sortingAlgorithms[12] = SortingAlgorithm("Comb Sort", emptyLambda);
-        m_sortingAlgorithms[13] = SortingAlgorithm("Cycle Sort", emptyLambda);
-        m_sortingAlgorithms[14] = SortingAlgorithm("Gnome Sort", emptyLambda);
-        m_sortingAlgorithms[15] = SortingAlgorithm("Pancake Sort", emptyLambda);
-        m_sortingAlgorithms[16] = SortingAlgorithm("Bogo Sort", emptyLambda);
-        m_sortingAlgorithms[17] = SortingAlgorithm("Bitonic Sort", emptyLambda);
-        m_sortingAlgorithms[18] = SortingAlgorithm("Pigeonhole Sort", emptyLambda);
-        m_sortingAlgorithms[19] = SortingAlgorithm("Strand Sort", emptyLambda);
-        m_sortingAlgorithms[20] = SortingAlgorithm("Tree Sort", emptyLambda);
-        m_sortingAlgorithms[21] = SortingAlgorithm("Stooge Sort", emptyLambda);
-        m_sortingAlgorithms[22] = SortingAlgorithm("Tim Sort", emptyLambda);
-        m_sortingAlgorithms[23] = SortingAlgorithm("Cube Sort", emptyLambda);
-        m_sortingAlgorithms[24] = SortingAlgorithm("Block Sort", emptyLambda);
-        m_sortingAlgorithms[25] = SortingAlgorithm("Smooth Sort", emptyLambda);
-        m_sortingAlgorithms[26] = SortingAlgorithm("Odd-Even Sort", emptyLambda);
-        m_sortingAlgorithms[27] = SortingAlgorithm("Quick3 Sort", emptyLambda);
-        m_sortingAlgorithms[28] = SortingAlgorithm("Library Sort", emptyLambda);
-        m_sortingAlgorithms[29] = SortingAlgorithm("Bead Sort", emptyLambda);
-        m_sortingAlgorithms[30] = SortingAlgorithm("Flash Sort", emptyLambda);
+        m_sortingAlgorithms[1] = SortingAlgorithm("Bubble Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[2] = SortingAlgorithm("Selection Sort   (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[3] = SortingAlgorithm("Insertion Sort   (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[4] = SortingAlgorithm("Merge Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[5] = SortingAlgorithm("Quick Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[6] = SortingAlgorithm("Heap Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[7] = SortingAlgorithm("Shell Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[8] = SortingAlgorithm("Radix Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[9] = SortingAlgorithm("Counting Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[10] = SortingAlgorithm("Bucket Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[11] = SortingAlgorithm("Cocktail Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[12] = SortingAlgorithm("Comb Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[13] = SortingAlgorithm("Cycle Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[14] = SortingAlgorithm("Gnome Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[15] = SortingAlgorithm("Pancake Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[16] = SortingAlgorithm("Bogo Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[17] = SortingAlgorithm("Bitonic Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[18] = SortingAlgorithm("Pigeonhole Sort  (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[19] = SortingAlgorithm("Strand Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[20] = SortingAlgorithm("Tree Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[21] = SortingAlgorithm("Stooge Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[22] = SortingAlgorithm("Tim Sort         (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[23] = SortingAlgorithm("Cube Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[24] = SortingAlgorithm("Block Sort       (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[25] = SortingAlgorithm("Smooth Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[26] = SortingAlgorithm("Odd-Even Sort    (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[27] = SortingAlgorithm("Quick3 Sort      (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[28] = SortingAlgorithm("Library Sort     (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[29] = SortingAlgorithm("Bead Sort        (non implemented !)", emptyLambda);
+        m_sortingAlgorithms[30] = SortingAlgorithm("Flash Sort       (non implemented !)", emptyLambda);
 
         m_sortingAlgorithmsLabels = (char **)(malloc(sizeof(char *) * m_sortingAlgorithms.size()));
 
@@ -218,11 +218,54 @@ namespace example
                     // this slider act on the size of the array, it will generate a new array of random numbers on change
                     ImGui::SliderInt("", &m_slider_size, m_slider_min, m_slider_max, "%d", ImGuiSliderFlags_None);
 
+                    ImGui::SameLine();
+                    ImGui::BeginGroup();
+                    {
+                        ImGui::PushID("Properties###Buttons");
+                        if (ImGui::Button("Shuffle", {-FLT_MIN, 19.f}))
+                        {
+                            std::random_device rd;
+                            std::mt19937 g(rd());
+                            std::shuffle(m_values.begin(), m_values.end(), g);
+                        }
+
+                        // ImGui::SameLine();
+                        if (ImGui::Button("Sort", {-FLT_MIN, 19.f}))
+                        {
+                            std::sort(m_values.begin(), m_values.end());
+                        }
+                        ImGui::PopID();
+                    }
+                    ImGui::EndGroup();
+
+                    if (std::is_sorted(m_values.begin(), m_values.end()))
+                    {
+                        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "sorted");
+                    }
+                    else
+                    {
+                        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "sorted");
+                    }
+
                     ImGui::PopID();
                 }
                 ImGui::End();
 
                 ImGui::Begin("Data", NULL, m_tab_flags);
+                {
+                    ImGui::PushID("Data");
+
+                    if (ImGui::BeginListBox("###data-listbox", {-FLT_MIN, -FLT_MIN}))
+                    {
+                        for (auto i : m_values)
+                        {
+                            ImGui::Selectable(std::to_string((int)i).c_str(), false);
+                        }
+                        ImGui::EndListBox();
+                    }
+
+                    ImGui::PopID();
+                }
                 ImGui::End();
 
                 ImGui::Begin("Specs", NULL, m_tab_flags);
@@ -236,8 +279,14 @@ namespace example
                 if (m_slider_size != m_values.size())
                 {
                     m_values.resize(m_slider_size);
-                    std::generate(m_values.begin(), m_values.end(), [this]()
-                                  { return rand() % (m_slider_size - 1) + 1; });
+                    // std::generate(m_values.begin(), m_values.end(), [this]()
+                    //               { return rand() % (m_slider_size - 1) + 1; });
+
+                    for (int i = 0; i < m_slider_size; ++i)
+                    {
+                        m_values[i] = i + 1;
+                    }
+                    sort(m_values.begin(), m_values.end());
                 }
 
                 ImVec2 windowSize = ImGui::GetWindowSize();
