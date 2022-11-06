@@ -17,6 +17,9 @@ include/**/*
 *.o
 *.obj
 */src/*.o
+src/*.obj
+src/*.o
+*.vscode/**
 
 # Precompiled Headers
 *.gch
@@ -455,3 +458,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,visualstudio
+.vscode/settings.json
