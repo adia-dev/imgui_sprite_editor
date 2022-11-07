@@ -28,10 +28,16 @@ namespace sa
         bool m_ShowDemoWindow = true;
         bool m_ShowMainWindow = true;
 
-        int m_Slider_size = 100;
+        int m_SliderSize = 100;
 
-        int m_Slider_min = 1;
-        int m_Slider_max = 1000;
+        int m_SliderMin = 1;
+        int m_SliderMax = 1000;
+
+        float m_Timer = std::numeric_limits<float>::max();
+        float m_SliderDelay = 0.1f;
+
+        bool m_IsSorting = false;
+        int m_SwapCount = 0;
 
         std::vector<float> m_Values;
         std::map<int, SortingAlgorithm<float>> m_SortingAlgorithms;
@@ -41,6 +47,9 @@ namespace sa
 
         ImGuiWindowFlags m_Tab_flags = ImGuiWindowFlags_NoScrollbar;
         ImVec4 m_ClearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+        // ImGuiIO ptr
+        std::unique_ptr<ImGuiIO> m_ImGuiIO = nullptr;
     };
 } // namespace sa
 

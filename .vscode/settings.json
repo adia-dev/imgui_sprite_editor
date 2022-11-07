@@ -44,6 +44,23 @@
     "tuple": "cpp",
     "type_traits": "cpp",
     "typeinfo": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "iostream": "cpp",
+    "__errc": "cpp",
+    "__locale": "cpp",
+    "__mutex_base": "cpp",
+    "bitset": "cpp",
+    "clocale": "cpp",
+    "cmath": "cpp",
+    "cstdarg": "cpp",
+    "ios": "cpp",
+    "istream": "cpp",
+    "locale": "cpp",
+    "mutex": "cpp",
+    "numeric": "cpp",
+    "ostream": "cpp",
+    "random": "cpp",
+    "streambuf": "cpp",
+    "system_error": "cpp"
   }
 }

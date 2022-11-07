@@ -9,10 +9,10 @@ namespace sa
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
-        ImGuiIO &io = ImGui::GetIO();
-        (void)io;
 
         // Configures IO
+        ImGuiIO &io = ImGui::GetIO();
+        (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
         // io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;   // Enable Docking
@@ -100,6 +100,15 @@ namespace sa
         }
 
         m_CurrentSortingAlgorithm = &(m_SortingAlgorithms[1]);
+
+        m_Values.resize(m_SliderSize);
+        for (int i = 0; i < m_SliderSize; ++i)
+        {
+            m_Values[i] = i + 1;
+        }
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(m_Values.begin(), m_Values.end(), g);
     }
 
     void ImguiImpl::Play()
@@ -118,6 +127,36 @@ namespace sa
 
     void ImguiImpl::Update()
     {
+        ImGuiIO &io = ImGui::GetIO();
+        (void)io;
+        m_Timer += io.DeltaTime;
+        if (m_Timer >= m_SliderDelay)
+        {
+            m_Timer = 0.f;
+
+            static int i = 0;
+            static int j = 0;
+
+            if (i <= m_Values.size() - 1 || !std::is_sorted(m_Values.begin(), m_Values.end()))
+            {
+
+                if (m_Values[j] > m_Values[j + 1])
+                {
+                    int temp = m_Values[j];
+                    m_Values[j] = m_Values[j + 1];
+                    m_Values[j + 1] = temp;
+                    m_SwapCount++;
+                    Render();
+                }
+                j++;
+
+                if (j == m_Values.size() - 1)
+                {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
     }
 
     void ImguiImpl::Render()
@@ -161,8 +200,8 @@ namespace sa
         {
 
             ImGui::PopStyleVar(2);
-
             ImGuiIO &io = ImGui::GetIO();
+            (void)io;
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
             {
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
@@ -216,7 +255,7 @@ namespace sa
                     // Slider label instead of the default one to avoid the inline display
                     ImGui::Text("Size of the Array");
                     // this slider act on the size of the array, it will generate a new array of random numbers on change
-                    ImGui::SliderInt("", &m_Slider_size, m_Slider_min, m_Slider_max, "%d", ImGuiSliderFlags_None);
+                    ImGui::SliderInt("", &m_SliderSize, m_SliderMin, m_SliderMax, "%d", ImGuiSliderFlags_None);
 
                     ImGui::SameLine();
                     ImGui::BeginGroup();
@@ -237,6 +276,9 @@ namespace sa
                         ImGui::PopID();
                     }
                     ImGui::EndGroup();
+
+                    ImGui::Text("Sorting Step Delay");
+                    ImGui::SliderFloat("SliderFloat (0 -> 1)", &m_SliderDelay, 0.0f, 1.0f, "%.3f", ImGuiSliderFlags_None);
 
                     ImGui::Text("Status:");
                     ImGui::SameLine();
@@ -271,6 +313,11 @@ namespace sa
                 ImGui::End();
 
                 ImGui::Begin("Specs", NULL, m_Tab_flags);
+                {
+                    ImGui::PushID("Specs");
+                    ImGui::Text("Swap: %d", m_SwapCount);
+                    ImGui::PopID();
+                }
                 ImGui::End();
             }
             ImGui::EndGroup();
@@ -278,23 +325,24 @@ namespace sa
             ImGui::Begin("Viewport", NULL, m_Tab_flags);
             {
                 ImGui::PushID("viewport");
-                if (m_Slider_size != m_Values.size())
+                if (m_SliderSize != m_Values.size())
                 {
-                    m_Values.resize(m_Slider_size);
-                    // std::generate(m_Values.begin(), m_Values.end(), [this]()
-                    //               { return rand() % (m_Slider_size - 1) + 1; });
+                    m_Values.resize(m_SliderSize);
 
-                    for (int i = 0; i < m_Slider_size; ++i)
+                    for (int i = 0; i < m_SliderSize; ++i)
                     {
                         m_Values[i] = i + 1;
                     }
-                    sort(m_Values.begin(), m_Values.end());
+
+                    std::random_device rd;
+                    std::mt19937 g(rd());
+                    std::shuffle(m_Values.begin(), m_Values.end(), g);
                 }
 
                 ImVec2 windowSize = ImGui::GetWindowSize();
-                ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_Slider_size, ImVec2(windowSize.x, 40.f));
+                ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_SliderSize, ImVec2(ImGui::GetContentRegionAvail().x, 40.f));
 
-                ImGui::PlotHistogram("", m_Values.data(), m_Slider_size, 0, NULL, 0.0f, (float)m_Slider_size, ImVec2(windowSize.x, windowSize.y - 40.f));
+                ImGui::PlotHistogram("", m_Values.data(), m_SliderSize, 0, NULL, 0.0f, (float)m_SliderSize, ImGui::GetContentRegionAvail());
                 ImGui::PopID();
             }
             ImGui::End();
