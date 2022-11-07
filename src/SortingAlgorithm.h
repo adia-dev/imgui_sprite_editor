@@ -8,24 +8,24 @@
 namespace sa
 {
 
-#define EMPTY_LAMDA(X) ([](const std::vector<X> &) {})
+#define EMPTY_LAMDA(X) ([](std::vector<X> *) {})
 
     template <typename T>
     class SortingAlgorithm
     {
     public:
         SortingAlgorithm<T>()
-            : name("undefined !")
+            : m_Name("undefined !")
         {
         }
 
-        SortingAlgorithm<T>(const std::string &name)
-            : name(name)
+        SortingAlgorithm<T>(const std::string &m_Name)
+            : m_Name(m_Name)
         {
         }
 
-        SortingAlgorithm<T>(const std::string &name, std::function<void(const std::vector<T> &)> impl)
-            : name(name), impl(impl)
+        SortingAlgorithm<T>(const std::string &m_Name, std::function<void(std::vector<T> *)> impl)
+            : m_Name(m_Name), m_Impl(impl)
         {
         }
 
@@ -38,13 +38,18 @@ namespace sa
             this->m_Impl(m_Collection);
         }
 
-        const std::string &getName() const { return name; }
-        const std::function<void(const std::vector<T> &)> &getImplementation() { return impl; }
+        virtual void SetCollection(std::vector<T> *collection)
+        {
+            m_Collection = collection;
+        }
+
+        const std::string &getName() const { return m_Name; }
+        const std::function<void(std::vector<T> *)> &getImplementation() { return m_Impl; }
 
     private:
         std::string m_Name;
         std::vector<T> *m_Collection = nullptr;
-        std::function<void(const std::vector<T> *)> m_Impl;
+        std::function<void(std::vector<T> *)> m_Impl;
     };
 }
 
