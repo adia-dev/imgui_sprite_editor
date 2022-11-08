@@ -31,13 +31,14 @@ namespace sa
         int m_SliderSize = 100;
 
         int m_SliderMin = 1;
-        int m_SliderMax = 1000;
+        int m_SliderMax = 10000;
 
+        float m_Clock = 0.f;
         float m_Timer = std::numeric_limits<float>::max();
         float m_SliderDelay = 0.1f;
 
-        bool m_IsSorting = false;
         int m_SwapCount = 0;
+        int m_StartIndex = 0;
 
         std::vector<float> m_Values;
         std::map<int, SortingAlgorithm<float>> m_SortingAlgorithms;

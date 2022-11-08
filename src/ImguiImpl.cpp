@@ -109,6 +109,9 @@ namespace sa
         std::random_device rd;
         std::mt19937 g(rd());
         std::shuffle(m_Values.begin(), m_Values.end(), g);
+        m_StartIndex = 0;
+        m_SwapCount = 0;
+        m_Clock = 0.f;
     }
 
     void ImguiImpl::Play()
@@ -132,30 +135,22 @@ namespace sa
         m_Timer += io.DeltaTime;
         if (m_Timer >= m_SliderDelay)
         {
-            m_Timer = 0.f;
-
-            static int i = 0;
-            static int j = 0;
-
-            if (i <= m_Values.size() - 1 || !std::is_sorted(m_Values.begin(), m_Values.end()))
+            if (m_StartIndex <= m_Values.size() - 1 || !std::is_sorted(m_Values.begin(), m_Values.end()))
             {
-
-                if (m_Values[j] > m_Values[j + 1])
+                m_Clock += m_Timer;
+                for (int j = 0; j < m_Values.size() - 1 - m_StartIndex; ++j)
                 {
-                    int temp = m_Values[j];
-                    m_Values[j] = m_Values[j + 1];
-                    m_Values[j + 1] = temp;
-                    m_SwapCount++;
-                    Render();
+                    if (m_Values[j] > m_Values[j + 1])
+                    {
+                        int temp = m_Values[j];
+                        m_Values[j] = m_Values[j + 1];
+                        m_Values[j + 1] = temp;
+                        m_SwapCount++;
+                    }
                 }
-                j++;
-
-                if (j == m_Values.size() - 1)
-                {
-                    j = 0;
-                    i++;
-                }
+                m_StartIndex++;
             }
+            m_Timer = 0.f;
         }
     }
 
@@ -266,6 +261,9 @@ namespace sa
                             std::random_device rd;
                             std::mt19937 g(rd());
                             std::shuffle(m_Values.begin(), m_Values.end(), g);
+                            m_StartIndex = 0;
+                            m_SwapCount = 0;
+                            m_Clock = 0.f;
                         }
 
                         // ImGui::SameLine();
@@ -277,8 +275,7 @@ namespace sa
                     }
                     ImGui::EndGroup();
 
-                    ImGui::Text("Sorting Step Delay");
-                    ImGui::SliderFloat("SliderFloat (0 -> 1)", &m_SliderDelay, 0.0f, 1.0f, "%.3f", ImGuiSliderFlags_None);
+                    ImGui::SliderFloat("Delay", &m_SliderDelay, 0.0f, 1.0f, "%.3f", ImGuiSliderFlags_None);
 
                     ImGui::Text("Status:");
                     ImGui::SameLine();
@@ -316,6 +313,8 @@ namespace sa
                 {
                     ImGui::PushID("Specs");
                     ImGui::Text("Swap: %d", m_SwapCount);
+                    ImGui::Text("Clock: %.2f", m_Clock);
+
                     ImGui::PopID();
                 }
                 ImGui::End();
@@ -337,9 +336,11 @@ namespace sa
                     std::random_device rd;
                     std::mt19937 g(rd());
                     std::shuffle(m_Values.begin(), m_Values.end(), g);
+                    m_StartIndex = 0;
+                    m_SwapCount = 0;
+                    m_Clock = 0.f;
                 }
 
-                ImVec2 windowSize = ImGui::GetWindowSize();
                 ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_SliderSize, ImVec2(ImGui::GetContentRegionAvail().x, 40.f));
 
                 ImGui::PlotHistogram("", m_Values.data(), m_SliderSize, 0, NULL, 0.0f, (float)m_SliderSize, ImGui::GetContentRegionAvail());
