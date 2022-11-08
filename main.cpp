@@ -78,27 +78,32 @@ public:
 int main()
 {
     std::cout << "Hello World\n";
-    // create an unique pointer to a sorting algorithm object of type BubbleSort
-    std::unique_ptr<SortingAlgorithm> sortingAlgorithm = std::make_unique<BubbleSort>();
-    std::unique_ptr<SortingAlgorithm> sortingAlgorithm2 = std::make_unique<QuickSort>();
+    // vector of pointers to SortingAlgorithm and a pointer to a SortingAlgorithm shared_ptr
+    std::vector<std::shared_ptr<SortingAlgorithm>> sortingAlgorithms;
+    std::shared_ptr<SortingAlgorithm> sortingAlgorithm;
 
     // create a vector of integers
-    std::vector<int> collection = {3, 1, 2, 5, 4};
+    std::vector<int> collection = {5, 4, 3, 2, 1};
 
-    for (auto &i : collection)
-    {
-        std::cout << i << " ";
-    }
-
-    // set the collection to the sorting algorithm
+    // create a BubbleSort object and set the collection
+    sortingAlgorithm = std::make_shared<BubbleSort>();
     sortingAlgorithm->setCollection(&collection);
-    sortingAlgorithm2->setCollection(&collection);
 
-    sortingAlgorithm->sort();
-    sortingAlgorithm2->sort();
+    // add the BubbleSort object to the vector of pointers to SortingAlgorithm
+    sortingAlgorithms.push_back(sortingAlgorithm);
 
-    sortingAlgorithm->printCollection();
-    sortingAlgorithm2->printCollection();
+    // create a QuickSort object and set the collection
+    sortingAlgorithm = std::make_shared<QuickSort>();
+    sortingAlgorithm->setCollection(&collection);
+
+    // add the QuickSort object to the vector of pointers to SortingAlgorithm
+    sortingAlgorithms.push_back(sortingAlgorithm);
+
+    // iterate over the vector of pointers to SortingAlgorithm and call the sort method
+    for (auto &i : sortingAlgorithms)
+    {
+        i->sort();
+    }
 
     return 0;
 }

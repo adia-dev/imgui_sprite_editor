@@ -60,47 +60,6 @@ namespace sa
     void ImguiImpl::Init()
     {
 
-        m_SortingAlgorithms[1] = SortingAlgorithm<float>("Bubble Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[2] = SortingAlgorithm<float>("Selection Sort   (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[3] = SortingAlgorithm<float>("Insertion Sort   (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[4] = SortingAlgorithm<float>("Merge Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[5] = SortingAlgorithm<float>("Quick Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[6] = SortingAlgorithm<float>("Heap Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[7] = SortingAlgorithm<float>("Shell Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[8] = SortingAlgorithm<float>("Radix Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[9] = SortingAlgorithm<float>("Counting Sort    (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[10] = SortingAlgorithm<float>("Bucket Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[11] = SortingAlgorithm<float>("Cocktail Sort    (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[12] = SortingAlgorithm<float>("Comb Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[13] = SortingAlgorithm<float>("Cycle Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[14] = SortingAlgorithm<float>("Gnome Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[15] = SortingAlgorithm<float>("Pancake Sort     (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[16] = SortingAlgorithm<float>("Bogo Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[17] = SortingAlgorithm<float>("Bitonic Sort     (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[18] = SortingAlgorithm<float>("Pigeonhole Sort  (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[19] = SortingAlgorithm<float>("Strand Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[20] = SortingAlgorithm<float>("Tree Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[21] = SortingAlgorithm<float>("Stooge Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[22] = SortingAlgorithm<float>("Tim Sort         (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[23] = SortingAlgorithm<float>("Cube Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[24] = SortingAlgorithm<float>("Block Sort       (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[25] = SortingAlgorithm<float>("Smooth Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[26] = SortingAlgorithm<float>("Odd-Even Sort    (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[27] = SortingAlgorithm<float>("Quick3 Sort      (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[28] = SortingAlgorithm<float>("Library Sort     (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[29] = SortingAlgorithm<float>("Bead Sort        (non implemented !)", EMPTY_LAMDA(float));
-        m_SortingAlgorithms[30] = SortingAlgorithm<float>("Flash Sort       (non implemented !)", EMPTY_LAMDA(float));
-
-        m_SortingAlgorithmsLabels = (char **)(malloc(sizeof(char *) * m_SortingAlgorithms.size()));
-
-        for (auto [key, value] : m_SortingAlgorithms)
-        {
-            m_SortingAlgorithmsLabels[key - 1] = (char *)(malloc(sizeof(char) * value.getName().size()));
-            strncpy(m_SortingAlgorithmsLabels[key - 1], value.getName().c_str(), value.getName().size() + 1);
-        }
-
-        m_CurrentSortingAlgorithm = &(m_SortingAlgorithms[1]);
-
         m_Values.resize(m_SliderSize);
         for (int i = 0; i < m_SliderSize; ++i)
         {
@@ -112,6 +71,28 @@ namespace sa
         m_StartIndex = 0;
         m_SwapCount = 0;
         m_Clock = 0.f;
+
+        m_SortingAlgorithmsLabels = (char **)malloc(sizeof(char *) * 10);
+        for (int i = 0; i < 10; ++i)
+        {
+            m_SortingAlgorithmsLabels[i] = (char *)malloc(sizeof(char) * 20);
+        }
+
+        strcpy(m_SortingAlgorithmsLabels[0], "Bubble Sort");
+        strcpy(m_SortingAlgorithmsLabels[1], "Selection Sort");
+        strcpy(m_SortingAlgorithmsLabels[2], "Insertion Sort");
+        strcpy(m_SortingAlgorithmsLabels[3], "Merge Sort");
+        strcpy(m_SortingAlgorithmsLabels[4], "Quick Sort");
+        strcpy(m_SortingAlgorithmsLabels[5], "Heap Sort");
+        strcpy(m_SortingAlgorithmsLabels[6], "Radix Sort");
+
+        m_SortingAlgorithms["Bubble Sort"] = std::make_shared<BubbleSort<float>>(&m_Values);
+        m_SortingAlgorithms["Bubble Sort"]->SetRenderCallback([this]()
+                                                              { this->Render(); });
+        m_SortingAlgorithms["Selection Sort"] = std::make_shared<SelectionSort<float>>(&m_Values);
+        m_SortingAlgorithms["Selection Sort"]->SetRenderCallback([this]()
+                                                                 { this->Render(); });
+        m_CurrentSortingAlgorithm = m_SortingAlgorithms["Bubble Sort"];
     }
 
     void ImguiImpl::Play()
@@ -133,23 +114,14 @@ namespace sa
         ImGuiIO &io = ImGui::GetIO();
         (void)io;
         m_Timer += io.DeltaTime;
+
         if (m_Timer >= m_SliderDelay)
         {
-            if (m_StartIndex <= m_Values.size() - 1 || !std::is_sorted(m_Values.begin(), m_Values.end()))
+            if (m_CurrentSortingAlgorithm != nullptr)
             {
-                m_Clock += m_Timer;
-                for (int j = 0; j < m_Values.size() - 1 - m_StartIndex; ++j)
-                {
-                    if (m_Values[j] > m_Values[j + 1])
-                    {
-                        int temp = m_Values[j];
-                        m_Values[j] = m_Values[j + 1];
-                        m_Values[j + 1] = temp;
-                        m_SwapCount++;
-                    }
-                }
-                m_StartIndex++;
+                m_CurrentSortingAlgorithm->Tick();
             }
+
             m_Timer = 0.f;
         }
     }
@@ -245,12 +217,40 @@ namespace sa
                     ImGui::PushID("Properties");
                     // create a const char* array with the names of the algorithms
 
-                    ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10);
+                    // ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10);
+                    if (ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10))
+                    {
+                        m_CurrentSortingAlgorithm = m_SortingAlgorithms[m_SortingAlgorithmsLabels[m_CurrentSortingAlgorithmIndex]];
+                        std::random_device rd;
+                        std::mt19937 g(rd());
+                        std::shuffle(m_Values.begin(), m_Values.end(), g);
+                        m_StartIndex = 0;
+                        m_SwapCount = 0;
+                        m_Clock = 0.f;
+                        if (m_CurrentSortingAlgorithm != nullptr)
+                            m_CurrentSortingAlgorithm->Reset();
+                    }
 
                     // Slider label instead of the default one to avoid the inline display
                     ImGui::Text("Size of the Array");
                     // this slider act on the size of the array, it will generate a new array of random numbers on change
-                    ImGui::SliderInt("", &m_SliderSize, m_SliderMin, m_SliderMax, "%d", ImGuiSliderFlags_None);
+                    if (ImGui::SliderInt("", &m_SliderSize, m_SliderMin, m_SliderMax, "%d", ImGuiSliderFlags_None))
+                    {
+
+                        m_Values.resize(m_SliderSize);
+                        for (int i = 0; i < m_SliderSize; ++i)
+                        {
+                            m_Values[i] = i + 1;
+                        }
+                        std::random_device rd;
+                        std::mt19937 g(rd());
+                        std::shuffle(m_Values.begin(), m_Values.end(), g);
+                        m_StartIndex = 0;
+                        m_SwapCount = 0;
+                        m_Clock = 0.f;
+                        if (m_CurrentSortingAlgorithm != nullptr)
+                            m_CurrentSortingAlgorithm->Reset();
+                    }
 
                     ImGui::SameLine();
                     ImGui::BeginGroup();
@@ -264,6 +264,8 @@ namespace sa
                             m_StartIndex = 0;
                             m_SwapCount = 0;
                             m_Clock = 0.f;
+                            if (m_CurrentSortingAlgorithm != nullptr)
+                                m_CurrentSortingAlgorithm->Reset();
                         }
 
                         // ImGui::SameLine();
@@ -275,7 +277,7 @@ namespace sa
                     }
                     ImGui::EndGroup();
 
-                    ImGui::SliderFloat("Delay", &m_SliderDelay, 0.0f, 1.0f, "%.3f", ImGuiSliderFlags_None);
+                    ImGui::SliderFloat("Delay", &m_SliderDelay, 0.0f, 0.1f, "%.3f", ImGuiSliderFlags_None);
 
                     ImGui::Text("Status:");
                     ImGui::SameLine();

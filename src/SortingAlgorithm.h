@@ -8,8 +8,6 @@
 namespace sa
 {
 
-#define EMPTY_LAMDA(X) ([](std::vector<X> *) {})
-
     template <typename T>
     class SortingAlgorithm
     {
@@ -24,8 +22,8 @@ namespace sa
         {
         }
 
-        SortingAlgorithm<T>(const std::string &m_Name, std::function<void(std::vector<T> *)> impl)
-            : m_Name(m_Name), m_Impl(impl)
+        SortingAlgorithm<T>(const std::string &m_Name, std::vector<T> *m_Collection)
+            : m_Name(m_Name), m_Collection(m_Collection)
         {
         }
 
@@ -33,24 +31,39 @@ namespace sa
         {
         }
 
-        virtual void Tick()
+        virtual void Tick() = 0;
+
+        virtual void Reset()
         {
-            this->m_Impl(m_Collection);
+
+            m_IsSorting = true;
+            m_IsSorted = false;
         }
+
+        bool IsSorted() const { return m_IsSorted; }
+        bool IsSorting() const { return m_IsSorting; }
 
         virtual void SetCollection(std::vector<T> *collection)
         {
             m_Collection = collection;
         }
 
-        const std::string &getName() const { return m_Name; }
-        const std::function<void(std::vector<T> *)> &getImplementation() { return m_Impl; }
+        void SetRenderCallback(std::function<void()> callback)
+        {
+            m_RenderCallback = callback;
+        }
 
-    private:
+        const std::string &getName() const { return m_Name; }
+
+    protected:
         std::string m_Name;
         std::vector<T> *m_Collection = nullptr;
-        std::function<void(std::vector<T> *)> m_Impl;
+        bool m_IsSorted = false;
+        bool m_IsSorting = false;
+
+        std::function<void()> m_RenderCallback = nullptr;
     };
+
 }
 
 #endif

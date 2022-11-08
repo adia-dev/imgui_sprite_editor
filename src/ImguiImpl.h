@@ -2,7 +2,7 @@
 #define IMGUIIMPL_H
 
 #pragma once
-#include "SortingAlgorithm.h"
+#include "BubbleSort.h"
 
 namespace sa
 {
@@ -35,22 +35,21 @@ namespace sa
 
         float m_Clock = 0.f;
         float m_Timer = std::numeric_limits<float>::max();
-        float m_SliderDelay = 0.1f;
+        float m_SliderDelay = 0.01f;
 
         int m_SwapCount = 0;
         int m_StartIndex = 0;
 
         std::vector<float> m_Values;
-        std::map<int, SortingAlgorithm<float>> m_SortingAlgorithms;
+
+        // Sorting Algorithms variables
         char **m_SortingAlgorithmsLabels = nullptr;
+        std::map<std::string, std::shared_ptr<SortingAlgorithm<float>>> m_SortingAlgorithms;
+        std::shared_ptr<SortingAlgorithm<float>> m_CurrentSortingAlgorithm = nullptr;
         int m_CurrentSortingAlgorithmIndex = 0;
-        SortingAlgorithm<float> *m_CurrentSortingAlgorithm = nullptr;
 
         ImGuiWindowFlags m_Tab_flags = ImGuiWindowFlags_NoScrollbar;
         ImVec4 m_ClearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-        // ImGuiIO ptr
-        std::unique_ptr<ImGuiIO> m_ImGuiIO = nullptr;
     };
 } // namespace sa
 
