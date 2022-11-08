@@ -60,17 +60,7 @@ namespace sa
     void ImguiImpl::Init()
     {
 
-        m_Values.resize(m_SliderSize);
-        for (int i = 0; i < m_SliderSize; ++i)
-        {
-            m_Values[i] = i + 1;
-        }
-        std::random_device rd;
-        std::mt19937 g(rd());
-        std::shuffle(m_Values.begin(), m_Values.end(), g);
-        m_StartIndex = 0;
-        m_SwapCount = 0;
-        m_Clock = 0.f;
+        Reset();
 
         m_SortingAlgorithmsLabels = (char **)malloc(sizeof(char *) * 10);
         for (int i = 0; i < 10; ++i)
@@ -126,27 +116,39 @@ namespace sa
         }
     }
 
+    void ImguiImpl::Resize()
+    {
+        m_Values.resize(m_SliderSize);
+        for (int i = 0; i < m_SliderSize; ++i)
+        {
+            m_Values[i] = i + 1;
+        }
+    }
+
+    void ImguiImpl::Shuffle()
+    {
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(m_Values.begin(), m_Values.end(), g);
+    }
+
+    void ImguiImpl::Reset()
+    {
+        Resize();
+        Shuffle();
+        m_StartIndex = 0;
+        m_SwapCount = 0;
+        m_Clock = 0.f;
+        if (m_CurrentSortingAlgorithm != nullptr)
+            m_CurrentSortingAlgorithm->Reset();
+    }
+
     void ImguiImpl::Render()
     {
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        // Main window, this window will hold the viewport and the preferences
-        /*
-                                  ─────────────────────────────────┐
-                                  │      │                         │
-                                  │      │                         │
-                                  ├──────│                         │
-                                  │      │                         │
-                                  │      │                         │
-                                  │      │                         │
-                                  ├──────┤                         │
-                                  │      │                         │
-                                  └──────┴─────────────────────────┘
-                   */
-
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
         const ImGuiViewport *viewport = ImGui::GetMainViewport();
@@ -175,198 +177,165 @@ namespace sa
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
             }
 
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("File"))
-                {
-                    if (ImGui::MenuItem("Open..", "Ctrl+O"))
-                    {
-                        // Do stuff
-                    }
-                    if (ImGui::MenuItem("Save", "Ctrl+S"))
-                    {
-                        // Do stuff
-                    }
-
-                    ImGui::Separator();
-                    if (ImGui::MenuItem(m_ShowDemoWindow ? "Hide Demo Window" : "Show Demo Window", ""))
-                    {
-                        m_ShowDemoWindow = !m_ShowDemoWindow;
-                    }
-
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Close", "Ctrl+W"))
-                    {
-                        m_GLFWImpl.Close();
-                    }
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
-
             // demo window
             if (m_ShowDemoWindow)
                 ImGui::ShowDemoWindow(&m_ShowDemoWindow);
 
-            // Left group, contains: properties, table, specs
-            ImGui::BeginGroup();
-            {
-                // no vertical scrolling
-                ImGui::Begin("Properties", NULL, m_Tab_flags);
-                {
-                    ImGui::PushID("Properties");
-                    // create a const char* array with the names of the algorithms
+            RenderSideBar();
 
-                    // ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10);
-                    if (ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10))
-                    {
-                        m_CurrentSortingAlgorithm = m_SortingAlgorithms[m_SortingAlgorithmsLabels[m_CurrentSortingAlgorithmIndex]];
-                        std::random_device rd;
-                        std::mt19937 g(rd());
-                        std::shuffle(m_Values.begin(), m_Values.end(), g);
-                        m_StartIndex = 0;
-                        m_SwapCount = 0;
-                        m_Clock = 0.f;
-                        if (m_CurrentSortingAlgorithm != nullptr)
-                            m_CurrentSortingAlgorithm->Reset();
-                    }
-
-                    // Slider label instead of the default one to avoid the inline display
-                    ImGui::Text("Size of the Array");
-                    // this slider act on the size of the array, it will generate a new array of random numbers on change
-                    if (ImGui::SliderInt("", &m_SliderSize, m_SliderMin, m_SliderMax, "%d", ImGuiSliderFlags_None))
-                    {
-
-                        m_Values.resize(m_SliderSize);
-                        for (int i = 0; i < m_SliderSize; ++i)
-                        {
-                            m_Values[i] = i + 1;
-                        }
-                        std::random_device rd;
-                        std::mt19937 g(rd());
-                        std::shuffle(m_Values.begin(), m_Values.end(), g);
-                        m_StartIndex = 0;
-                        m_SwapCount = 0;
-                        m_Clock = 0.f;
-                        if (m_CurrentSortingAlgorithm != nullptr)
-                            m_CurrentSortingAlgorithm->Reset();
-                    }
-
-                    ImGui::SameLine();
-                    ImGui::BeginGroup();
-                    {
-                        ImGui::PushID("Properties###Buttons");
-                        if (ImGui::Button("Shuffle", {-FLT_MIN, 19.f}))
-                        {
-                            std::random_device rd;
-                            std::mt19937 g(rd());
-                            std::shuffle(m_Values.begin(), m_Values.end(), g);
-                            m_StartIndex = 0;
-                            m_SwapCount = 0;
-                            m_Clock = 0.f;
-                            if (m_CurrentSortingAlgorithm != nullptr)
-                                m_CurrentSortingAlgorithm->Reset();
-                        }
-
-                        // ImGui::SameLine();
-                        if (ImGui::Button("Sort", {-FLT_MIN, 19.f}))
-                        {
-                            std::sort(m_Values.begin(), m_Values.end());
-                        }
-                        ImGui::PopID();
-                    }
-                    ImGui::EndGroup();
-
-                    ImGui::SliderFloat("Delay", &m_SliderDelay, 0.0f, 0.1f, "%.3f", ImGuiSliderFlags_None);
-
-                    ImGui::Text("Status:");
-                    ImGui::SameLine();
-                    if (std::is_sorted(m_Values.begin(), m_Values.end()))
-                    {
-                        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "sorted");
-                    }
-                    else
-                    {
-                        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "sorted");
-                    }
-
-                    ImGui::PopID();
-                }
-                ImGui::End();
-
-                ImGui::Begin("Data", NULL, m_Tab_flags);
-                {
-                    ImGui::PushID("Data");
-
-                    if (ImGui::BeginListBox("###data-listbox", {-FLT_MIN, -FLT_MIN}))
-                    {
-                        for (auto i : m_Values)
-                        {
-                            ImGui::Selectable(std::to_string((int)i).c_str(), false);
-                        }
-                        ImGui::EndListBox();
-                    }
-
-                    ImGui::PopID();
-                }
-                ImGui::End();
-
-                ImGui::Begin("Specs", NULL, m_Tab_flags);
-                {
-                    ImGui::PushID("Specs");
-                    ImGui::Text("Swap: %d", m_SwapCount);
-                    ImGui::Text("Clock: %.2f", m_Clock);
-
-                    ImGui::PopID();
-                }
-                ImGui::End();
-            }
-            ImGui::EndGroup();
-
-            ImGui::Begin("Viewport", NULL, m_Tab_flags);
-            {
-                ImGui::PushID("viewport");
-                if (m_SliderSize != m_Values.size())
-                {
-                    m_Values.resize(m_SliderSize);
-
-                    for (int i = 0; i < m_SliderSize; ++i)
-                    {
-                        m_Values[i] = i + 1;
-                    }
-
-                    std::random_device rd;
-                    std::mt19937 g(rd());
-                    std::shuffle(m_Values.begin(), m_Values.end(), g);
-                    m_StartIndex = 0;
-                    m_SwapCount = 0;
-                    m_Clock = 0.f;
-                }
-
-                ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_SliderSize, ImVec2(ImGui::GetContentRegionAvail().x, 40.f));
-
-                ImGui::PlotHistogram("", m_Values.data(), m_SliderSize, 0, NULL, 0.0f, (float)m_SliderSize, ImGui::GetContentRegionAvail());
-                ImGui::PopID();
-            }
-            ImGui::End();
+            RenderViewport();
         }
         ImGui::End();
 
         ImGui::Render();
 
-        int display_w, display_h;
-        glfwGetFramebufferSize(m_GLFWImpl.GetWindow(), &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(m_ClearColor.x * m_ClearColor.w, m_ClearColor.y * m_ClearColor.w, m_ClearColor.z * m_ClearColor.w, m_ClearColor.w);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        RenderGLFW();
+    }
 
-        // Update and Render additional Platform Windows
-        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-        RenderAdditionalPlatformWindows();
+    void ImguiImpl::RenderMenuBar()
+    {
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Open..", "Ctrl+O"))
+                {
+                    // Do stuff
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S"))
+                {
+                    // Do stuff
+                }
 
-        glfwSwapBuffers(m_GLFWImpl.GetWindow());
+                ImGui::Separator();
+                if (ImGui::MenuItem(m_ShowDemoWindow ? "Hide Demo Window" : "Show Demo Window", ""))
+                {
+                    m_ShowDemoWindow = !m_ShowDemoWindow;
+                }
+
+                ImGui::Separator();
+                if (ImGui::MenuItem("Close", "Ctrl+W"))
+                {
+                    m_GLFWImpl.Close();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+    }
+
+    void ImguiImpl::RenderSideBar()
+    {
+        RenderProperties();
+        RenderData();
+        RenderSpecs();
+    }
+
+    void ImguiImpl::RenderProperties()
+    {
+        ImGui::Begin("Properties", NULL, m_Tab_flags);
+        {
+            ImGui::PushID("Properties");
+            // create a const char* array with the names of the algorithms
+
+            // ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10);
+            if (ImGui::Combo("Sorting Algorithm", &m_CurrentSortingAlgorithmIndex, m_SortingAlgorithmsLabels, 10))
+            {
+                m_CurrentSortingAlgorithm = m_SortingAlgorithms[m_SortingAlgorithmsLabels[m_CurrentSortingAlgorithmIndex]];
+                Reset();
+            }
+
+            // Slider label instead of the default one to avoid the inline display
+            ImGui::Text("Size of the Array");
+            // this slider act on the size of the array, it will generate a new array of random numbers on change
+            if (ImGui::SliderInt("", &m_SliderSize, m_SliderMin, m_SliderMax, "%d", ImGuiSliderFlags_None))
+            {
+                Reset();
+            }
+
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            {
+                ImGui::PushID("Properties###Buttons");
+                if (ImGui::Button("Shuffle", {-FLT_MIN, 19.f}))
+                {
+                    Reset();
+                }
+
+                // ImGui::SameLine();
+                if (ImGui::Button("Sort", {-FLT_MIN, 19.f}))
+                {
+                    std::sort(m_Values.begin(), m_Values.end());
+                }
+                ImGui::PopID();
+            }
+            ImGui::EndGroup();
+
+            ImGui::SliderFloat("Delay", &m_SliderDelay, 0.0f, 0.1f, "%.3f", ImGuiSliderFlags_None);
+
+            ImGui::Text("Status:");
+            ImGui::SameLine();
+            if (std::is_sorted(m_Values.begin(), m_Values.end()))
+            {
+                ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "sorted");
+            }
+            else
+            {
+                ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "sorted");
+            }
+
+            ImGui::PopID();
+        }
+        ImGui::End();
+    }
+
+    void ImguiImpl::RenderData()
+    {
+        ImGui::Begin("Data", NULL, m_Tab_flags);
+        {
+            ImGui::PushID("Data");
+
+            if (ImGui::BeginListBox("###data-listbox", {-FLT_MIN, -FLT_MIN}))
+            {
+                for (auto i : m_Values)
+                {
+                    ImGui::Selectable(std::to_string((int)i).c_str(), false);
+                }
+                ImGui::EndListBox();
+            }
+
+            ImGui::PopID();
+        }
+        ImGui::End();
+    }
+
+    void ImguiImpl::RenderSpecs()
+    {
+        ImGui::Begin("Specs", NULL, m_Tab_flags);
+        {
+            ImGui::PushID("Specs");
+            ImGui::Text("Swap: %d", m_SwapCount);
+            ImGui::Text("Clock: %.2f", m_Clock);
+
+            ImGui::PopID();
+        }
+        ImGui::End();
+    }
+
+    void ImguiImpl::RenderViewport()
+    {
+        ImGui::Begin("Viewport", NULL, m_Tab_flags);
+        {
+            ImGui::PushID("viewport");
+            if (m_SliderSize != m_Values.size())
+                Reset();
+
+            ImGui::PlotLines("", m_Values.data(), m_Values.size(), 0, "", 0, m_SliderSize, ImVec2(ImGui::GetContentRegionAvail().x, 40.f));
+
+            ImGui::PlotHistogram("", m_Values.data(), m_SliderSize, 0, NULL, 0.0f, (float)m_SliderSize, ImGui::GetContentRegionAvail());
+            ImGui::PopID();
+        }
+        ImGui::End();
     }
 
     void ImguiImpl::RenderAdditionalPlatformWindows()
@@ -380,6 +349,23 @@ namespace sa
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+    }
+
+    void ImguiImpl::RenderGLFW()
+    {
+        int display_w, display_h;
+        glfwGetFramebufferSize(m_GLFWImpl.GetWindow(), &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        glClearColor(m_ClearColor.x * m_ClearColor.w, m_ClearColor.y * m_ClearColor.w, m_ClearColor.z * m_ClearColor.w, m_ClearColor.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        // Update and Render additional Platform Windows
+        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
+        RenderAdditionalPlatformWindows();
+
+        glfwSwapBuffers(m_GLFWImpl.GetWindow());
     }
 
     void

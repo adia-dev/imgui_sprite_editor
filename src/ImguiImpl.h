@@ -19,8 +19,20 @@ namespace sa
         void Init();
 
         virtual void Update();
+        void Resize();
+        void Shuffle();
+        void Reset();
+
         void Render();
         void RenderAdditionalPlatformWindows();
+        void RenderGLFW();
+        void RenderMenuBar();
+        void RenderSideBar();
+        void RenderProperties();
+        void RenderData();
+        void RenderSpecs();
+        void RenderViewport();
+
         void Shutdown();
 
         GLFWImpl &m_GLFWImpl;
