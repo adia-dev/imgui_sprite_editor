@@ -2,7 +2,7 @@
 #define IMGUIIMPL_H
 
 #pragma once
-#include "BubbleSort.h"
+#include "./algorithms/BubbleSort.h"
 
 namespace sa
 {

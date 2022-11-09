@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "GLFWImpl.h"
+#include "../GLFWImpl.h"
 
 namespace sa
 {
@@ -76,7 +76,7 @@ namespace sa
 
         void SetAt(size_t index, const T &value)
         {
-            // TriggerCallback("OnCollectionAccess");
+            // TriggerCallback("OnRender");
             // m_Collection->emplace(m_Collection->begin() + index, value);
             (*m_Collection)[index] = value;
         }
@@ -89,6 +89,7 @@ namespace sa
                 return;
 
             std::swap(this->GetAt(left), this->GetAt(right));
+            // TriggerCallback("OnRender");
             this->TriggerCallback("OnSwap");
         }
 
@@ -104,6 +105,7 @@ namespace sa
         bool m_IsSorting = false;
         int m_CurrentIndex = 0;
         int m_CurrentPass = 0;
+        int m_StepsPerTick = 1;
 
         std::map<std::string, std::function<void()>> m_Callbacks;
     };

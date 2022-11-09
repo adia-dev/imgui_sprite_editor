@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SortingAlgorithm.h"
+#include "MergeSort.h"
 
 namespace sa
 {
@@ -34,7 +34,7 @@ namespace sa
                 return;
             }
 
-            if (this->m_CurrentIndex >= this->m_Collection->size() - 1)
+            if (this->m_CurrentIndex >= this->m_Collection->size())
             {
                 this->m_CurrentIndex = 0;
                 this->m_CurrentPass++;

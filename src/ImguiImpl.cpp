@@ -112,6 +112,20 @@ namespace sa
                                                            [this]()
                                                            { this->Render(); });
 
+        m_SortingAlgorithms["Merge Sort"] = std::make_shared<MergeSort<float>>(&m_Values);
+        m_SortingAlgorithms["Merge Sort"]->SetCallback("OnSwap",
+                                                       [this]()
+                                                       { this->m_SwapCount++; });
+        m_SortingAlgorithms["Merge Sort"]->SetCallback("OnComparison",
+                                                       [this]()
+                                                       { this->m_ComparisonCount++; });
+        m_SortingAlgorithms["Merge Sort"]->SetCallback("OnCollectionAccess",
+                                                       [this]()
+                                                       { this->m_CollectionAccessCount++; });
+        m_SortingAlgorithms["Merge Sort"]->SetCallback("OnRender",
+                                                       [this]()
+                                                       { this->Render(); });
+
         m_CurrentSortingAlgorithm = m_SortingAlgorithms["Bubble Sort"];
     }
 

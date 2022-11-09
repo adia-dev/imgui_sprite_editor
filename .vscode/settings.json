@@ -61,6 +61,8 @@
     "ostream": "cpp",
     "random": "cpp",
     "streambuf": "cpp",
-    "system_error": "cpp"
-  }
+    "system_error": "cpp",
+    "thread": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Enabled"
 }
