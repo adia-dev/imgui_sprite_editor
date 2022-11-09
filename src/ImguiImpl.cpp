@@ -77,11 +77,41 @@ namespace sa
         strcpy(m_SortingAlgorithmsLabels[6], "Radix Sort");
 
         m_SortingAlgorithms["Bubble Sort"] = std::make_shared<BubbleSort<float>>(&m_Values);
-        m_SortingAlgorithms["Bubble Sort"]->SetRenderCallback([this]()
-                                                              { this->Render(); });
+        m_SortingAlgorithms["Bubble Sort"]->SetCallback("OnSwap",
+                                                        [this]()
+                                                        { this->m_SwapCount++; });
+        m_SortingAlgorithms["Bubble Sort"]->SetCallback("OnComparison",
+                                                        [this]()
+                                                        { this->m_ComparisonCount++; });
+        m_SortingAlgorithms["Bubble Sort"]->SetCallback("OnCollectionAccess",
+                                                        [this]()
+                                                        { this->m_CollectionAccessCount++; });
+
         m_SortingAlgorithms["Selection Sort"] = std::make_shared<SelectionSort<float>>(&m_Values);
-        m_SortingAlgorithms["Selection Sort"]->SetRenderCallback([this]()
-                                                                 { this->Render(); });
+        m_SortingAlgorithms["Selection Sort"]->SetCallback("OnSwap",
+                                                           [this]()
+                                                           { this->m_SwapCount++; });
+        m_SortingAlgorithms["Selection Sort"]->SetCallback("OnComparison",
+                                                           [this]()
+                                                           { this->m_ComparisonCount++; });
+        m_SortingAlgorithms["Selection Sort"]->SetCallback("OnCollectionAccess",
+                                                           [this]()
+                                                           { this->m_CollectionAccessCount++; });
+
+        m_SortingAlgorithms["Insertion Sort"] = std::make_shared<InsertionSort<float>>(&m_Values);
+        m_SortingAlgorithms["Insertion Sort"]->SetCallback("OnSwap",
+                                                           [this]()
+                                                           { this->m_SwapCount++; });
+        m_SortingAlgorithms["Insertion Sort"]->SetCallback("OnComparison",
+                                                           [this]()
+                                                           { this->m_ComparisonCount++; });
+        m_SortingAlgorithms["Insertion Sort"]->SetCallback("OnCollectionAccess",
+                                                           [this]()
+                                                           { this->m_CollectionAccessCount++; });
+        m_SortingAlgorithms["Insertion Sort"]->SetCallback("OnRender",
+                                                           [this]()
+                                                           { this->Render(); });
+
         m_CurrentSortingAlgorithm = m_SortingAlgorithms["Bubble Sort"];
     }
 
@@ -138,6 +168,8 @@ namespace sa
         Shuffle();
         m_StartIndex = 0;
         m_SwapCount = 0;
+        m_ComparisonCount = 0;
+        m_CollectionAccessCount = 0;
         m_Clock = 0.f;
         if (m_CurrentSortingAlgorithm != nullptr)
             m_CurrentSortingAlgorithm->Reset();
@@ -315,6 +347,8 @@ namespace sa
         {
             ImGui::PushID("Specs");
             ImGui::Text("Swap: %d", m_SwapCount);
+            ImGui::Text("Comparison: %d", m_ComparisonCount);
+            ImGui::Text("Collection Access: %d", m_CollectionAccessCount);
             ImGui::Text("Clock: %.2f", m_Clock);
 
             ImGui::PopID();

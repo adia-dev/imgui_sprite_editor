@@ -38,6 +38,8 @@ namespace sa
 
             m_IsSorting = true;
             m_IsSorted = false;
+            m_CurrentIndex = 0;
+            m_CurrentPass = 0;
         }
 
         bool IsSorted() const { return m_IsSorted; }
@@ -48,20 +50,62 @@ namespace sa
             m_Collection = collection;
         }
 
-        void SetRenderCallback(std::function<void()> callback)
+        std::map<std::string, std::function<void()>> &GetCallbacks()
         {
-            m_RenderCallback = callback;
+            return m_Callbacks;
         }
 
-        const std::string &getName() const { return m_Name; }
+        void SetCallback(const std::string &name, std::function<void()> callback)
+        {
+            m_Callbacks[name] = callback;
+        }
+
+        void TriggerCallback(const std::string &name)
+        {
+            if (m_Callbacks.find(name) != m_Callbacks.end())
+                m_Callbacks[name]();
+            else
+                std::cout << "Could not trigger callback: " << name << "\n";
+        }
+
+        T &GetAt(size_t index)
+        {
+            TriggerCallback("OnCollectionAccess");
+            return m_Collection->at(index);
+        }
+
+        void SetAt(size_t index, const T &value)
+        {
+            // TriggerCallback("OnCollectionAccess");
+            // m_Collection->emplace(m_Collection->begin() + index, value);
+            (*m_Collection)[index] = value;
+        }
+
+        void Swap(size_t left, size_t right)
+        {
+            if (m_Collection == nullptr)
+                return;
+            if ((left < 0 && left >= m_Collection->size()) || (right < 0 && right >= m_Collection->size()))
+                return;
+
+            std::swap(this->GetAt(left), this->GetAt(right));
+            this->TriggerCallback("OnSwap");
+        }
+
+        const std::string &getName() const
+        {
+            return m_Name;
+        }
 
     protected:
         std::string m_Name;
         std::vector<T> *m_Collection = nullptr;
         bool m_IsSorted = false;
         bool m_IsSorting = false;
+        int m_CurrentIndex = 0;
+        int m_CurrentPass = 0;
 
-        std::function<void()> m_RenderCallback = nullptr;
+        std::map<std::string, std::function<void()>> m_Callbacks;
     };
 
 }

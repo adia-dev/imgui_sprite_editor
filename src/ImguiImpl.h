@@ -50,6 +50,8 @@ namespace sa
         float m_SliderDelay = 0.01f;
 
         int m_SwapCount = 0;
+        int m_ComparisonCount = 0;
+        int m_CollectionAccessCount = 0;
         int m_StartIndex = 0;
 
         std::vector<float> m_Values;
