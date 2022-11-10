@@ -126,6 +126,20 @@ namespace sa
                                                        [this]()
                                                        { this->Render(); });
 
+        m_SortingAlgorithms["Quick Sort"] = std::make_shared<QuickSort<float>>(&m_Values);
+        m_SortingAlgorithms["Quick Sort"]->SetCallback("OnSwap",
+                                                       [this]()
+                                                       { this->m_SwapCount++; });
+        m_SortingAlgorithms["Quick Sort"]->SetCallback("OnComparison",
+                                                       [this]()
+                                                       { this->m_ComparisonCount++; });
+        m_SortingAlgorithms["Quick Sort"]->SetCallback("OnCollectionAccess",
+                                                       [this]()
+                                                       { this->m_CollectionAccessCount++; });
+        m_SortingAlgorithms["Quick Sort"]->SetCallback("OnRender",
+                                                       [this]()
+                                                       { this->Render(); });
+
         m_CurrentSortingAlgorithm = m_SortingAlgorithms["Bubble Sort"];
     }
 
@@ -154,6 +168,8 @@ namespace sa
             if (m_CurrentSortingAlgorithm != nullptr)
             {
                 m_CurrentSortingAlgorithm->Tick();
+                if (!m_CurrentSortingAlgorithm->IsSorted())
+                    m_Clock += io.DeltaTime;
             }
 
             m_Timer = 0.f;
