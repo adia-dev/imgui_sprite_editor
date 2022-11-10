@@ -16,6 +16,8 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <stack>
+#include <queue>
 #include <algorithm>
 #include <string>
 #include <functional>

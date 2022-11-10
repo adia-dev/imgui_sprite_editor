@@ -31,6 +31,7 @@ namespace sa
         {
             if (this->m_Collection == nullptr || this->m_Collection->size() <= 1 || std ::is_sorted(this->m_Collection->begin(), this->m_Collection->end()) || this->m_CurrentPass >= this->m_Collection->size())
             {
+                this->Reset();
                 return;
             }
 
