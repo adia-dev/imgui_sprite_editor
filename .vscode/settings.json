@@ -62,7 +62,10 @@
     "random": "cpp",
     "streambuf": "cpp",
     "system_error": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "stack": "cpp",
+    "queue": "cpp",
+    "deque": "cpp"
   },
   "C_Cpp.errorSquiggles": "Enabled"
 }

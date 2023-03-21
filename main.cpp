@@ -99,6 +99,9 @@ int main()
     // add the QuickSort object to the vector of pointers to SortingAlgorithm
     sortingAlgorithms.push_back(sortingAlgorithm);
 
+    // create a heap vector of integers
+    std::vector<int> heapCollection = {5, 4, 3, 2, 1};
+
     // iterate over the vector of pointers to SortingAlgorithm and call the sort method
     for (auto &i : sortingAlgorithms)
     {
