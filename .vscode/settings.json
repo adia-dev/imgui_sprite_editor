@@ -67,5 +67,10 @@
     "queue": "cpp",
     "deque": "cpp"
   },
-  "C_Cpp.errorSquiggles": "Enabled"
+  "C_Cpp.errorSquiggles": "Enabled",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#391378",
+    "titleBar.activeBackground": "#501AA8",
+    "titleBar.activeForeground": "#FDFCFF"
+  }
 }
